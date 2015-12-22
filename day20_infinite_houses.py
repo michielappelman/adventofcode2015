@@ -27,5 +27,9 @@ def lazy_house_with_presents(presents):
                 return house
         house += 1
 
-print(house_with_presents(34000000))
-print(lazy_house_with_presents(34000000))
+def main():
+    print(house_with_presents(34000000))
+    print(lazy_house_with_presents(34000000))
+
+if __name__ == "__main__":
+    main()
