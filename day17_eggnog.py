@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import itertools
 
+eggnog = 150
 puzzle_input = """43
 3
 4
@@ -21,17 +22,15 @@ puzzle_input = """43
 9
 27
 38"""
-containers = list(map(int, puzzle_input.split()))
+containers = [ int(line) for line in puzzle_input.split()]
 
-eggnog = 150
-
-def combo_list(length:int):
+def combo_list(length:int) -> list:
     i = 0
     while i < 2**length:
-        yield list(map(int, list(format(i, '0{}b'.format(length)))))
+        yield [ int(combo) for combo in list(format(i, '0{}b'.format(length))) ]
         i += 1
 
-def get_valid_combinations(eggnog:int, containers:list):
+def get_valid_combinations(eggnog:int, containers:list) -> list:
     combinations = []
     for combo in combo_list(len(containers)):
         container_combo = list(itertools.compress(containers, combo))
@@ -47,6 +46,7 @@ def main():
 
     print("Total: {}, Minimum: {}.".format(len(combinations), 
                                            len(right_combinations)))
+    # Total: 1638, Minimum: 17.
 
 if __name__ == "__main__":
     main()
