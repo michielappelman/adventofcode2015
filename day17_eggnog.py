@@ -40,9 +40,8 @@ def get_valid_combinations(eggnog:int, containers:list) -> list:
 
 def main():
     combinations = get_valid_combinations(eggnog, containers)
-    combinations.sort(key=len)
     right_combinations = [ c for c in combinations 
-                            if len(c) == len(combinations[0]) ]
+                            if len(c) == len(min(combinations, key=len)) ]
 
     print("Total: {}, Minimum: {}.".format(len(combinations), 
                                            len(right_combinations)))
