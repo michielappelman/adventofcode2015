@@ -1000,16 +1000,36 @@ input = """3x11x24
 24x25x17
 14x6x11"""
 
+class Gift:
+    def __init__(self, l, w, h):
+        self.l = int(l)
+        self.w = int(w)
+        self.h = int(h)
+    
+    def __repr__(self):
+        return 'Gift(%r, %r, %r)' % (self.l, self.w, self.h)
+    
+    # function for paper needed
+    def paper(self):
+        x = 2*self.l*self.w
+        y = 2*self.w*self.h
+        z = 2*self.l*self.h
+        extra_paper = sorted([x, y, z])[0]/2
+        return x + y + z + extra_paper
+    
+    # function for ribbon needed
+    def ribbon(self):
+        srt = sorted([self.l, self.w, self.h])
+        rib = 2 * srt[0] + 2 * srt[1]
+        return rib + self.l * self.w * self.h
+
 paper = 0
 ribbon = 0
+
 for gift in input.split('\n'):
-    l, w, h = gift.split('x')
-    l, w, h = int(l), int(w), int(h)
-    x = 2*l*w
-    y = 2*w*h
-    z = 2*l*h
-    extra_paper = sorted([x, y, z])[0]/2
-    paper += x + y + z + extra_paper
-    rib = 2 * sorted([l, w, h])[0] + 2 * sorted([l, w, h])[1]
-    ribbon += rib + l * w * h
+    size = (int(m) for m in gift.split('x'))
+    g = Gift(*size)
+    paper += g.paper()
+    ribbon += g.ribbon()
+
 print("Order {} square feet of paper and {} feet of ribbon.".format(paper, ribbon))
